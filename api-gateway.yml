@@ -61,7 +61,7 @@ spring:
 # Datasource and JPA configuration to be used for using the same tokenstore as the authorization server for
 # the defined resource server. Note that there can't be 2 different root nodes, so datasource falls under the "spring" node.
   datasource:
-    url: jdbc:mysql://192.168.99.100:3306/auth
+    url: jdbc:mysql://localhost:3306/auth
     username: root
     password: password
     driver-class: com.mysql.jdbc.Driver
@@ -76,6 +76,12 @@ spring:
 # Auth-server instance when used on Docker
 spring:
   profiles: docker
+# The datasource for the auth-db
+  datasource:
+    url: jdbc:mysql://192.168.99.100:3306/auth
+    username: root
+    password: password
+    driver-class: com.mysql.jdbc.Driver
 eureka:
 # Register our microservices to Eureka using hostnames in a Docker environment will not work, they will all get 
 # one and the same hostname. Instead we configure them to use its IP address during registration with Eureka.
@@ -88,6 +94,35 @@ eureka:
 # The OAuth2 server definition that would be used to send the authorization requests to
 authserver:
     hostname: 192.168.99.100
+    port: 8899
+    contextPath: userauth
+    
+# Define the port where the API gateway server would be running. This could always be port 8080
+# since each docker container has it's own IP
+server:
+  port: 8765
+
+# Auth-server instance when used on Docker
+spring:
+  profiles: kubernetes
+# The datasource for the auth-db
+  datasource:
+    url: jdbc:mysql://auth-db:3306/auth
+    username: root
+    password: password
+    driver-class: com.mysql.jdbc.Driver
+eureka:
+# Register our microservices to Eureka using hostnames in a Docker environment will not work, they will all get 
+# one and the same hostname. Instead we configure them to use its IP address during registration with Eureka.
+  instance:
+    preferIpAddress: true
+  client:
+    serviceUrl:
+      defaultZone: http://webservice-registry:8761/eureka/
+      
+# The OAuth2 server definition that would be used to send the authorization requests to
+authserver:
+    hostname: auth-server
     port: 8899
     contextPath: userauth
     
