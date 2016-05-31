@@ -103,7 +103,7 @@ server:
   port: 8765
 
 ---
-# Auth-server instance when used on Docker
+# Auth-server instance when used on kubernetes
 spring:
   profiles: kubernetes
 # The datasource for the auth-db
