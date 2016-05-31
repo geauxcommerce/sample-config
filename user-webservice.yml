@@ -42,3 +42,27 @@ authserver:
 # since each docker container has it's own IP
 server:
   port: 8081
+
+---
+# user-webservice instance when used on kubernetes
+spring:
+  profiles: kubernetes
+eureka:
+# Register our microservices to Eureka using hostnames in a Docker environment will not work, they will all get 
+# one and the same hostname. Instead we configure them to use its IP address during registration with Eureka.
+  instance:
+    preferIpAddress: true
+  client:
+    serviceUrl:
+      defaultZone: http://webservice-registry:8761/eureka/
+      
+# The OAuth2 server definition that would be used to send the authorization requests to
+authserver:
+    hostname: auth-server
+    port: 8899
+    contextPath: userauth
+    
+# Define the port where the API gateway server would be running. This could always be port 8080
+# since each docker container has it's own IP
+server:
+  port: 8081
