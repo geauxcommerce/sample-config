@@ -102,6 +102,7 @@ authserver:
 server:
   port: 8765
 
+---
 # Auth-server instance when used on Docker
 spring:
   profiles: kubernetes
