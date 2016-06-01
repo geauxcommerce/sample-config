@@ -62,8 +62,8 @@ eureka:
       
 # The OAuth2 server definition that would be used to send the authorization requests to
 authserver:
-    hostname: auth-server
-    port: 8899
+    hostname: 104.196.32.136
+    port: 8080
     contextPath: userauth
     
 # Define the port where the API gateway server would be running. This could always be port 8080
