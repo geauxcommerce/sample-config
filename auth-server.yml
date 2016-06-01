@@ -53,7 +53,7 @@ spring:
   profiles: kubernetes
 # Datasource for the auth-db
   datasource:
-    url: jdbc:mysql://auth-db:3306/auth
+    url: jdbc:mysql://auth-db-mysql:3306/auth
     username: root
     password: password
 eureka:
